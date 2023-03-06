@@ -308,4 +308,46 @@ public class MaterialDAO {
             throw new RuntimeException(e);
         }
     }
-}
+
+    public ObservableList<Material> buscarMateriales(String nombreMaterial, String fabricante, String material) {
+        ObservableList<Material> datosResultadoConsulta = FXCollections.observableArrayList();
+
+        try {
+            conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
+            //java.sql.Date dateInicio = new java.sql.Date(fechaInicio.getTime());
+            //java.sql.Date dateFin = new java.sql.Date(fechaFin.getTime());
+
+            String SQL = "SELECT * "+
+                    "FROM materiales "+
+                    "WHERE nombreMaterial LIKE '%" +nombreMaterial+
+                    "%' OR fabricante LIKE '%" +fabricante+
+                    "%' OR material LIKE '%" +material+
+                    //"%' OR precio >= " +precio+
+                    "';";
+            //' OR indicadorPeligro LIKE '%" +indicadorPeligro+ "%'
+            ResultSet resultadoConsulta = conexionBBDD.createStatement().executeQuery(SQL);
+
+            while(resultadoConsulta.next()){
+                datosResultadoConsulta.add(new Material(
+                        resultadoConsulta.getInt("idMaterial"),
+                        resultadoConsulta.getString("nombreMaterial"),
+                        resultadoConsulta.getString("fabricante"),
+                        resultadoConsulta.getString("material"),
+                        resultadoConsulta.getDouble("precio"),
+                        resultadoConsulta.getString("indicadorPeligro"),
+                        resultadoConsulta.getString("fechaInicioVenta"),
+                        resultadoConsulta.getString("fechaFinVenta")
+                ));
+                System.out.println("Row[1] added"+resultadoConsulta.toString());
+            }
+            conexionBBDD.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            return datosResultadoConsulta;
+        }
+
+    }
+
+    }

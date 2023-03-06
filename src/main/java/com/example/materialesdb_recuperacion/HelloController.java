@@ -126,6 +126,39 @@ public class HelloController {
                 throw new RuntimeException(e);
             }
         });
+
+        botonBuscar.setOnMouseClicked((EventHandler) event -> {
+
+            var nombreMaterial = inputNombre.getText().trim();
+            var fabricante = inputFabricante.getText().trim();
+            var material = inputMaterial.getText().trim();
+            /*double precio;
+            if(inputPrecio.getText() == null || inputPrecio.getText() == ""){
+                precio = 0.00;
+            }else{
+                precio = Double.parseDouble(inputPrecio.getText());
+            }*/
+            /*String indicadorPeligro;
+            if(cbPeligro.getValue().toString() == null){
+                indicadorPeligro = "";
+            }else{
+                indicadorPeligro = cbPeligro.getValue().toString();
+            }*/
+            //var precio = Double.parseDouble(inputPrecio.getText());
+            //var indicadorPeligro = cbPeligro.getValue().toString();
+
+            datos = materialDAO.buscarMateriales(nombreMaterial, fabricante, material);
+
+            tcIDMaterial.setCellValueFactory(new PropertyValueFactory<Material, Integer>("idMaterial"));
+            tcNombreMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("nombreMaterial"));
+            tcFabricante.setCellValueFactory(new PropertyValueFactory<Material, String>("fabricante"));
+            tcMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("material"));
+            tcPrecio.setCellValueFactory(new PropertyValueFactory<Material, Double>("precio"));
+            tcIndicadorPeligro.setCellValueFactory(new PropertyValueFactory<Material, String>("indicadorPeligro"));
+            tcFechaInicioVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaInicioVenta"));
+            tcFechaFinVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaFinVenta"));
+            tvMateriales.setItems(datos);
+        });
     }
 
     private void cargarDobleClickMD(){

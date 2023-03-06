@@ -25,6 +25,11 @@
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #025939;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
             <children>
+            <Button id="btnNuevo" fx:id="btnAtras" mnemonicParsing="false" rotate="180.0" styleClass="botonOpcion" text="➔" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
                 <Label fx:id="botonVolverInicio" text="👷‍♂️" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="32.0" />

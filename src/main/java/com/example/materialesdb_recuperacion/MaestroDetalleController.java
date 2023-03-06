@@ -58,6 +58,8 @@ public class MaestroDetalleController {
     private TableView tvDatosTecnicos;
     @FXML
     private TableColumn tcIdMaterialMD;
+    @FXML
+    private Button btnAtras;
 
     @FXML
     protected void initialize(){
@@ -143,6 +145,24 @@ public class MaestroDetalleController {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("nuevoDetalleView.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 640, 500);
                 stage.setTitle("Nuevo Detalle");
+                stage.setMinWidth(640);
+                stage.setMinHeight(500);
+                stage.setScene(scene);
+                stage.show();
+                Node source = (Node) event.getSource();
+                Stage stageActual = (Stage) source.getScene().getWindow();
+                stageActual.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        btnAtras.setOnMouseClicked((EventHandler) event -> {
+            try {
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 640, 500);
+                stage.setTitle("Inicio");
                 stage.setMinWidth(640);
                 stage.setMinHeight(500);
                 stage.setScene(scene);

@@ -44,6 +44,8 @@ public class NuevoDetalleController {
 
     private MaterialDAO materialDAO = new MaterialDAO();
     DatosTecnicos d = DatosTecnicos.getInstance();
+    @FXML
+    private Button btnAtras;
 
     @FXML
     protected void initialize(){
@@ -108,6 +110,24 @@ public class NuevoDetalleController {
                 throw new RuntimeException(e);
             }
 
+        });
+
+        btnAtras.setOnMouseClicked((EventHandler) event -> {
+            try {
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("maestroDetalleView.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 640, 500);
+                stage.setTitle("Maestro Detalle");
+                stage.setMinWidth(640);
+                stage.setMinHeight(500);
+                stage.setScene(scene);
+                stage.show();
+                Node source = (Node) event.getSource();
+                Stage stageActual = (Stage) source.getScene().getWindow();
+                stageActual.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
 
