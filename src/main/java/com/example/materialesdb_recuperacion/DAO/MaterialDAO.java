@@ -65,8 +65,10 @@ public class MaterialDAO {
                     "fechaFinVenta)"+
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            java.sql.Date dateInicio = new java.sql.Date(fechaInicio.getDate());
-            java.sql.Date dateFin = new java.sql.Date(fechaFin.getDate());
+            java.sql.Date dateInicio = new java.sql.Date(fechaInicio.getTime());
+            java.sql.Date dateFin = new java.sql.Date(fechaFin.getTime());
+
+            System.out.println(dateInicio);
 
             PreparedStatement st = conexionBBDD.prepareStatement(SQL);
             st.setString(1, nombreMaterial);
@@ -198,8 +200,8 @@ public class MaterialDAO {
         int registrosAfectadosConsulta = 0;
         try {
             conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
-            java.sql.Date dateInicio = new java.sql.Date(fechaInicio.getDate());
-            java.sql.Date dateFin = new java.sql.Date(fechaFin.getDate());
+            java.sql.Date dateInicio = new java.sql.Date(fechaInicio.getTime());
+            java.sql.Date dateFin = new java.sql.Date(fechaFin.getTime());
             String SQL = "UPDATE materiales "+
                     "SET nombreMaterial='"+nombreMaterial+
                     "',fabricante='"+fabricante+

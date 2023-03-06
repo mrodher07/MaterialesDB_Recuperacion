@@ -96,10 +96,12 @@ public class NuevoRegistroMaestroController {
                     LocalDate fechaInicioValor = tfFechaInicioNR.getValue();
                     LocalDate fechaFinValor = tfFechaFinNR.getValue();
 
+                    System.out.println(fechaInicioValor);
+
                     Date fechaInicio = Date.from(fechaInicioValor.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                     Date fechaFin = Date.from(fechaFinValor.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 
-                    System.out.println(nombre + " " + fabricante + " " + material + " " + precio + " " + indicadorPeligro + " " + fechaInicio + " " + fechaFin);
+                    System.out.println(nombre + " " + fabricante + " " + material + " " + precio + " " + indicadorPeligro + " " + fechaInicioValor + " " + fechaFinValor);
 
                     materialDAO.nuevoRegistroMaestro(nombre, fabricante, material, precio, indicadorPeligro, fechaInicio, fechaFin);
 
