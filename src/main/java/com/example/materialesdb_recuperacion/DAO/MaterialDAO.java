@@ -309,22 +309,47 @@ public class MaterialDAO {
         }
     }
 
-    public ObservableList<Material> buscarMateriales(String nombreMaterial, String fabricante, String material) {
+    public ObservableList<Material> buscarMateriales(String nombreMaterial, String fabricante, String material, Double precio, String indicadorPeligro) {
         ObservableList<Material> datosResultadoConsulta = FXCollections.observableArrayList();
 
         try {
             conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
-            //java.sql.Date dateInicio = new java.sql.Date(fechaInicio.getTime());
-            //java.sql.Date dateFin = new java.sql.Date(fechaFin.getTime());
+            /*java.sql.Date dateInicio = new java.sql.Date(fechaInicio.getTime());
+            java.sql.Date dateFin = new java.sql.Date(fechaFin.getTime());*/
 
             String SQL = "SELECT * "+
                     "FROM materiales "+
+                    "WHERE 1 = 1";
+
+            /*String SQL = "SELECT * "+
+                    "FROM materiales "+
                     "WHERE nombreMaterial LIKE '%" +nombreMaterial+
-                    "%' OR fabricante LIKE '%" +fabricante+
-                    "%' OR material LIKE '%" +material+
-                    //"%' OR precio >= " +precio+
-                    "';";
-            //' OR indicadorPeligro LIKE '%" +indicadorPeligro+ "%'
+                    "%' AND fabricante LIKE '%" +fabricante+
+                    "%' AND material LIKE '%" +material+
+                    "%' AND precio >= " +precio+
+                    " AND indicadorPeligro LIKE '%" +indicadorPeligro+ "%';";*/
+
+            if(nombreMaterial != ""){
+                SQL += " AND nombreMaterial LIKE '%" +nombreMaterial+"%' ";
+            }
+            if(fabricante != ""){
+                SQL += " AND fabricante LIKE '%" +fabricante+"%' ";
+            }
+            if(material != ""){
+                SQL += " AND material LIKE '%" +material+"%' ";
+            }
+            if(precio != 0.00){
+                SQL += " AND precio >=" +precio+" ";
+            }
+            if(indicadorPeligro != ""){
+                SQL += " AND indicadorPeligro LIKE '%" +indicadorPeligro+"%' ";
+            }
+
+            /*
+             +
+                    " AND fechaInicioVenta > " + dateInicio +
+                    " AND fechaFinVenta > " + dateFin +";"
+             */
             ResultSet resultadoConsulta = conexionBBDD.createStatement().executeQuery(SQL);
 
             while(resultadoConsulta.next()){

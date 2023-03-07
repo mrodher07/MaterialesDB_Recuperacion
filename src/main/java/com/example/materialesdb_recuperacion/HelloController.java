@@ -15,6 +15,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class HelloController {
     @FXML
@@ -132,23 +135,26 @@ public class HelloController {
             var nombreMaterial = inputNombre.getText().trim();
             var fabricante = inputFabricante.getText().trim();
             var material = inputMaterial.getText().trim();
-            /*double precio;
-            if(inputPrecio.getText() == null || inputPrecio.getText() == ""){
+            double precio;
+            if(inputPrecio.getText().isEmpty()){
                 precio = 0.00;
             }else{
                 precio = Double.parseDouble(inputPrecio.getText());
-            }*/
-            /*String indicadorPeligro;
-            if(cbPeligro.getValue().toString() == null){
+            }
+            String indicadorPeligro;
+            if(cbPeligro.getValue() == null){
                 indicadorPeligro = "";
             }else{
                 indicadorPeligro = cbPeligro.getValue().toString();
-            }*/
-            //var precio = Double.parseDouble(inputPrecio.getText());
-            //var indicadorPeligro = cbPeligro.getValue().toString();
+            }
 
-            datos = materialDAO.buscarMateriales(nombreMaterial, fabricante, material);
+            /*LocalDate fechaInicioValor = fechaInicioVenta.getValue();
+            LocalDate fechaFinValor = fechaFinVenta.getValue();
+            Date fechaInicio = Date.from(fechaInicioValor.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+            Date fechaFin = Date.from(fechaFinValor.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());*/
 
+            datos = materialDAO.buscarMateriales(nombreMaterial, fabricante, material, precio, indicadorPeligro);
+            //, fechaInicio, fechaFin
             tcIDMaterial.setCellValueFactory(new PropertyValueFactory<Material, Integer>("idMaterial"));
             tcNombreMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("nombreMaterial"));
             tcFabricante.setCellValueFactory(new PropertyValueFactory<Material, String>("fabricante"));
