@@ -2,6 +2,7 @@ package com.example.materialesdb_recuperacion;
 
 import com.example.materialesdb_recuperacion.DAO.MaterialDAO;
 import com.example.materialesdb_recuperacion.modelos.Material;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -81,16 +82,18 @@ public class HelloController {
     }
 
     private void cargarDatosIniciales() {
-        datos = materialDAO.obtenerTodosMateriales();
-        tcIDMaterial.setCellValueFactory(new PropertyValueFactory<Material, Integer>("idMaterial"));
-        tcNombreMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("nombreMaterial"));
-        tcFabricante.setCellValueFactory(new PropertyValueFactory<Material, String>("fabricante"));
-        tcMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("material"));
-        tcPrecio.setCellValueFactory(new PropertyValueFactory<Material, Double>("precio"));
-        tcIndicadorPeligro.setCellValueFactory(new PropertyValueFactory<Material, String>("indicadorPeligro"));
-        tcFechaInicioVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaInicioVenta"));
-        tcFechaFinVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaFinVenta"));
-        tvMateriales.setItems(datos);
+        Platform.runLater(()->{
+            datos = materialDAO.obtenerTodosMateriales();
+            tcIDMaterial.setCellValueFactory(new PropertyValueFactory<Material, Integer>("idMaterial"));
+            tcNombreMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("nombreMaterial"));
+            tcFabricante.setCellValueFactory(new PropertyValueFactory<Material, String>("fabricante"));
+            tcMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("material"));
+            tcPrecio.setCellValueFactory(new PropertyValueFactory<Material, Double>("precio"));
+            tcIndicadorPeligro.setCellValueFactory(new PropertyValueFactory<Material, String>("indicadorPeligro"));
+            tcFechaInicioVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaInicioVenta"));
+            tcFechaFinVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaFinVenta"));
+            tvMateriales.setItems(datos);
+        });
     }
 
     private void cargarHandlers(){
@@ -153,17 +156,18 @@ public class HelloController {
             Date fechaInicio = Date.from(fechaInicioValor.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             Date fechaFin = Date.from(fechaFinValor.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());*/
 
-            datos = materialDAO.buscarMateriales(nombreMaterial, fabricante, material, precio, indicadorPeligro);
-            //, fechaInicio, fechaFin
-            tcIDMaterial.setCellValueFactory(new PropertyValueFactory<Material, Integer>("idMaterial"));
-            tcNombreMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("nombreMaterial"));
-            tcFabricante.setCellValueFactory(new PropertyValueFactory<Material, String>("fabricante"));
-            tcMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("material"));
-            tcPrecio.setCellValueFactory(new PropertyValueFactory<Material, Double>("precio"));
-            tcIndicadorPeligro.setCellValueFactory(new PropertyValueFactory<Material, String>("indicadorPeligro"));
-            tcFechaInicioVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaInicioVenta"));
-            tcFechaFinVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaFinVenta"));
-            tvMateriales.setItems(datos);
+            Platform.runLater(()->{
+                datos = materialDAO.buscarMateriales(nombreMaterial, fabricante, material, precio, indicadorPeligro);
+                tcIDMaterial.setCellValueFactory(new PropertyValueFactory<Material, Integer>("idMaterial"));
+                tcNombreMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("nombreMaterial"));
+                tcFabricante.setCellValueFactory(new PropertyValueFactory<Material, String>("fabricante"));
+                tcMaterial.setCellValueFactory(new PropertyValueFactory<Material, String>("material"));
+                tcPrecio.setCellValueFactory(new PropertyValueFactory<Material, Double>("precio"));
+                tcIndicadorPeligro.setCellValueFactory(new PropertyValueFactory<Material, String>("indicadorPeligro"));
+                tcFechaInicioVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaInicioVenta"));
+                tcFechaFinVenta.setCellValueFactory(new PropertyValueFactory<Material, String>("fechaFinVenta"));
+                tvMateriales.setItems(datos);
+            });
         });
     }
 

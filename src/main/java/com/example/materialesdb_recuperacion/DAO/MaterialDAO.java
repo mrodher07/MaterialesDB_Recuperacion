@@ -102,9 +102,12 @@ public class MaterialDAO {
             conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
             String SQL = "SELECT * " +
                     "FROM materiales " +
-                    "WHERE idMaterial = "+id;
+                    "WHERE idMaterial = ?";
 
-            ResultSet consulta = conexionBBDD.createStatement().executeQuery(SQL);
+            PreparedStatement statement = conexionBBDD.prepareStatement(SQL);
+
+            statement.setInt(1, id);
+            ResultSet consulta = statement.executeQuery();
 
             while (consulta.next()) {
                 resultado.setNombreMaterial(consulta.getString("nombreMaterial"));
@@ -135,10 +138,13 @@ public class MaterialDAO {
         try {
             conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
             String SQL = "SELECT * " +
-                    "FROM datosTecnicos " +
-                    "WHERE idMaterial = "+id;
+                    "FROM datostecnicos " +
+                    "WHERE idMaterial = ?";
 
-            ResultSet consulta = conexionBBDD.createStatement().executeQuery(SQL);
+            PreparedStatement statement = conexionBBDD.prepareStatement(SQL);
+
+            statement.setInt(1, id);
+            ResultSet consulta = statement.executeQuery();
             while (consulta.next()) {
                 resultado.add(new DatosTecnicos(
                         consulta.getInt("idMaterial"),
@@ -170,9 +176,12 @@ public class MaterialDAO {
             conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
             String SQL = "SELECT * " +
                     "FROM datostecnicos " +
-                    "WHERE idMaterial = "+id;
+                    "WHERE idMaterial = ?";
 
-            ResultSet consulta = conexionBBDD.createStatement().executeQuery(SQL);
+            PreparedStatement statement = conexionBBDD.prepareStatement(SQL);
+
+            statement.setInt(1, id);
+            ResultSet consulta = statement.executeQuery();
 
             while (consulta.next()) {
                 resultado.setNombreMaterial(consulta.getString("nombreMaterial"));
@@ -316,6 +325,8 @@ public class MaterialDAO {
             conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
             /*java.sql.Date dateInicio = new java.sql.Date(fechaInicio.getTime());
             java.sql.Date dateFin = new java.sql.Date(fechaFin.getTime());*/
+
+            int contador = 1;
 
             String SQL = "SELECT * "+
                     "FROM materiales "+
